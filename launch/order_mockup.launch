@@ -1,6 +1,6 @@
 <launch>
-  <rosparam command="load" file="$(find vda5050_connector)/config/daemons_params.yaml" />
-  <node name="order_daemon" pkg="vda5050_connector" type="order_daemon" output="screen" >  </node>
+<!--   <rosparam command="load" file="$(find vda5050_connector)/config/daemons_params.yaml" /> -->
+<!--   <node name="order_daemon" pkg="vda5050_connector" type="order_daemon" output="screen" >  </node> -->
   
   <node pkg="vda5050_connector" type="order_mockup" name="order_mockup" output="screen">
     <remap from="order" to="order_from_mc" />
