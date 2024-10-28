@@ -42,14 +42,24 @@ bridge:
 
   # Bridge from MQTT to ROS.
   - factory: mqtt_bridge.bridge:MqttToRosBridge
-    msg_type: vda5050_msgs.msg:Action
-    topic_from: qa/client_test_1/instantActions
-    topic_to: /instantActions
+    msg_type: vda5050_msgs.msg:InstantAction
+    topic_from: qa/client_test_1/instantAction
+    topic_to: /ia_from_mc
 
   - factory: mqtt_bridge.bridge:MqttToRosBridge
     msg_type: vda5050_msgs.msg:Order
     topic_from: qa/client_test_1/order
     topic_to: /order_from_mc
+
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: vda5050_msgs.msg:MapUpdate
+    topic_from: qa/client_test_1/map
+    topic_to: /map
+
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: vda5050_msgs.msg:ZoneUpdate
+    topic_from: qa/client_test_1/zones
+    topic_to: /zones
 
 serializer: json:dumps
 deserializer: json:loads
