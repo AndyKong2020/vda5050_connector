@@ -1,0 +1,25 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${node}]: ${message}" />
+  <arg name="bridge_params" />
+  <node name="mqtt_bridge" pkg="mqtt_bridge" type="mqtt_bridge_node.py" output="screen" respawn="true">
+    <rosparam command="load" file="$(find vda5050_connector)/config/mqtt_bridge.yaml" />
+  </node>
+  <node name="action_client" pkg="vda5050_connector" type="action_client" clear_params="true"
+    output="screen">
+    <rosparam command="load" file="$(find vda5050_connector)/config/action_client.yaml" />
+  </node>
+  <node name="vda5050_connector" pkg="vda5050_connector" type="vda5050_connector" clear_params="true"
+    output="screen">
+    <rosparam command="load" file="$(find vda5050_connector)/config/vda5050_connector.yaml" />
+  </node>
+  <rosparam command="load" ns="header" file="$(find vda5050_connector)/config/agv_data.yaml" />
+  <node name="vda_message_generator_node" pkg="vda_message_generator" type="vda_message_generator_node" output="screen">
+  </node>
+  <node name="state_mockup" pkg="vda5050_connector" type="state_mockup" output="screen">
+  </node>
+
+<!--    --><!-- Include standalone.launch with overridden params_file -->
+<!--   <include file="$(find mqtt_client)/launch/standalone.launch"> -->
+<!--     <arg name="params_file" value="$(find vda5050_connector)/config/mqtt_bridge.yaml" /> -->
+<!--   </include> -->
+</launch>
